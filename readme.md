@@ -15,7 +15,7 @@ A LSTM network that learns from the drum tracks of Metallica and generates new t
  * [This folder](https://github.com/keunwoochoi/LSTMetallica/tree/master/Metallica_drums_midi) contains the original drum midi tracks.
  
 #### External links
- * Details in my [blog post](https://keunwoochoi.wordpress.com/2016/02/23/lstmetallica/)
+ * Details in Keunwoo Choi's [blog post](https://keunwoochoi.wordpress.com/2016/02/23/lstmetallica/)
  * [Results on soundcloud](https://soundcloud.com/kchoi-research/sets/lstmetallica-drums) and [+1 more result](https://soundcloud.com/kchoi-research/00-24-100-bonus-for-score)
  * Similar work on jazz chord progression: [github repository](https://github.com/keunwoochoi/lstm_real_book), [blog post](https://keunwoochoi.wordpress.com/2016/02/19/lstm-realbook/), [soundcloud](https://soundcloud.com/kchoi-research/sets/lstm-realbook-1-5)
 

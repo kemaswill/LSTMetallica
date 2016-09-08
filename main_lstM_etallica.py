@@ -93,7 +93,11 @@ def run(is_character=False, maxlen=None, num_units=None, model_prefix=''):
 	X = np.zeros((len(sentences), maxlen, num_chars), dtype=np.bool)
 	y = np.zeros((len(sentences), num_chars), dtype=np.bool)
 	for i, sentence in enumerate(sentences):
+		if i == 0:
+			print "sentence", sentence
 		for t, char in enumerate(sentence):
+			if i == 0:
+				print char
 			X[i, t, char_indices[char]] = 1
 		y[i, char_indices[next_chars[i]]] = 1
 
@@ -116,7 +120,8 @@ def run(is_character=False, maxlen=None, num_units=None, model_prefix=''):
 	# train the model, output generated text after each iteration
 	batch_size = 128
 	loss_history = []
-	pt_x = [1,29,30,40,100,100,200,300,400]
+	#pt_x = [1,29,30,40,100,100,200,300,400]
+	pt_x = [1]
 	nb_epochs = [np.sum(pt_x[:i+1]) for i in range(len(pt_x))]
 
 	# not random seed, but the same seed for all.
