@@ -33,7 +33,7 @@ def get_model(maxlen, num_chars, num_layers):
 def sample(a, temperature=1.0):
 	# helper function to sample an index from a probability array
 	a = np.log(a) / temperature
-	a = np.exp(a) / np.sum(np.exp(a))
+	a = np.exp(a) / np.sum(np.exp(a)) * 0.9999
 	return np.argmax(np.random.multinomial(1, a, 1))
 
 def run(is_character=False, maxlen=None, num_units=None, model_prefix=''):
@@ -121,9 +121,9 @@ def run(is_character=False, maxlen=None, num_units=None, model_prefix=''):
 	batch_size = 128
 	loss_history = []
 	#pt_x = [1,29,30,40,100,100,200,300,400]
-	pt_x = [1]
+	pt_x = [300, 300, 300, 300, 300, 300, 300, 300, 300]
 	nb_epochs = [np.sum(pt_x[:i+1]) for i in range(len(pt_x))]
-
+	print("nb_epochs", nb_epochs)
 	# not random seed, but the same seed for all.
 	start_index = random.randint(0, len(text) - maxlen - 1)
 
@@ -133,17 +133,19 @@ def run(is_character=False, maxlen=None, num_units=None, model_prefix=''):
 			break
 
 		print('-' * 50)
-		print('Iteration', iteration)
+		#print('Iteration', iteration)
+		print("nb_epochs", nb_epochs)
 		batch_size_not_decided = True
-		while batch_size_not_decided:
-			result = model.fit(X, y, batch_size=batch_size, nb_epoch=nb_epoch, callbacks=[checker, early_stop]) 
+		#while batch_size_not_decided:
+		for i in range(iteration):
+			result = model.fit(X, y, batch_size=batch_size, nb_epoch=1, callbacks=[checker, early_stop]) 
 			loss_history = loss_history + result.history['loss']
 			
 		print 'Saving model after %d epochs...' % nb_epoch
 		model.save_weights('%smodel_after_%d.hdf'%(result_directory, nb_epoch), overwrite=True)
 
 		for diversity in [0.9, 1.0, 1.2]:
-			with open(('%sresult_%s_iter_%02d_diversity_%4.2f.txt' % (result_directory, prefix, iteration, diversity)), 'w') as f_write:
+			with open(('%sresult_%s_epoch_%02d_diversity_%4.2f.txt' % (result_directory, prefix, nb_epoch, diversity)), 'w') as f_write:
 
 				print()
 				print('----- diversity:', diversity)
